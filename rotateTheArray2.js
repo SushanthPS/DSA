@@ -8,28 +8,42 @@ function runProgram(input) {
         var newInput2 = newInput[i].split(" ").map(Number);
         var k = newInput2[1];
         var arr = newInput[i + 1].split(" ").map(Number);
+        var n = arr.length;
 
-        k = k % arr.length; //removing extra rotations
+        k = k % n; //removing extra rotations
 
-        var a = arr.slice(arr.length - k, arr.length);
-        var b = arr.slice(0, arr.length - k);
-        var ans = (a.join(" ") + " " + b.join(" "));
-        console.log(ans.trim());
+        var result = "";
+        for (var j = 0; j < n; j++)
+            result += arr[(n - k + j) % n] + " ";
 
+        console.log(result);
     }
 }
 /*
-       K = 4
-       N = 7
-       1 2 3 4 5 6 7  (4 rotations) 
-    == 4 5 6 7 1 2 3 
-    TO MAKE 4 ROTATIONS TO THE RIGHT, WE NEED TO MOVE THE LAST 4 ELEMENTS TO THE FIRST USING SLICE OPERATION
+K = 3
+N = 5
+
+input:  7  1  4  2  8
+index:  0  1  2  3  4
+
+output: 4  2  8  7  1
+index:  2  3  4  0  1
+
+to get output index:  (N-K+index)%N
+2 = (5-3+0)%5
+3 = (5-3+1)%5
+4 = (5-3+2)%5
+0 = (5-3+3)%5
+1 = (5-3+4)%5
+
+
+ 
 */
 
 if (process.env.USERNAME === "getsu") {
     runProgram(`3
-3 1
-1 2 3
+5 3
+7 1 4 2 8
 7 4
 1 2 3 4 5 6 7
 2 3

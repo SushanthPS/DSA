@@ -1,27 +1,30 @@
-function findDay(day, n) {
-    var days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    var indexOfDay;
-    for (var i = 0; i < days.length; i++)
-        if (days[i] == day) {
-            indexOfDay = i;
-            break;
-        }
-    var indexRequired = (indexOfDay + n) % 7;
-    // (2 + 8) % 7 = 3]
-    // days[3] = Thursday
-    return days[indexRequired];
+function isPowerOf2(n) {
+    if (n == 0)
+        return false;
+    while (n % 2 == 0) {
+        n = n / 2;
+    }
+    return n == 1;
 }
 
 function runProgram(input) {
     var newInput = input.split("\n");
-    var day = newInput[0];
-    var n = Number(newInput[1]);
-    console.log(findDay(day, n));
+    var t = Number(newInput[0]);
+    for (var i = 1; i <= t; i++) {
+        var n = Number(newInput[i]);
+        if (isPowerOf2(n))
+            console.log("YES");
+        else
+            console.log("NO");
+
+    }
 
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`Wednesday
-8`);
+    runProgram(`3
+1
+2
+100`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");
