@@ -1,27 +1,30 @@
-function bubbleSort(arr) {
-    var temp;
-    var result = "";
-    for (var i = 0; i < arr.length - 1; i++) {
-        for (var j = 0; j < arr.length - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-
+function pairsPresent(arr, k) {
+    var set = new Set();
+    for (var i = arr.length - 1; i >= 0; i--) {
+        if (set.has(arr[i] + k))
+            return "Yes";
+        set.add(arr[i]);
     }
-    return arr.join(" ");
+    return "No";
 }
 
 function runProgram(input) {
     var newInput = input.trim().split("\n");
-    var arr = newInput[1].split(" ").map(Number);
-    console.log(bubbleSort(arr));
+    var t = Number(newInput[0]);
+    for (var i = 1; i < t * 2; i += 2) {
+        var nk = newInput[i].split(" ").map(Number);
+        var k = nk[1];
+        var arr = newInput[i + 1].split(" ").map(Number);
+        console.log(pairsPresent(arr, k));
+
+    }
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-3 5 0 9 8`);
+    runProgram(`2
+5 3
+1 2 3 4 5
+5 8
+1 2 3 4 5 `);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

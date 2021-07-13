@@ -1,15 +1,17 @@
-function bubbleSort(arr) {
+function selectionSort(arr) {
     var temp;
-    var result = "";
     for (var i = 0; i < arr.length - 1; i++) {
-        for (var j = 0; j < arr.length - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+        var minIndex = i;
+        var min = arr[i];
+        for (var j = i + 1; j < arr.length; j++) {
+            if (arr[j] < min) {
+                minIndex = j;
+                min = arr[j];
             }
         }
-
+        temp = arr[i];
+        arr[i] = min;
+        arr[minIndex] = temp;
     }
     return arr.join(" ");
 }
@@ -17,7 +19,8 @@ function bubbleSort(arr) {
 function runProgram(input) {
     var newInput = input.trim().split("\n");
     var arr = newInput[1].split(" ").map(Number);
-    console.log(bubbleSort(arr));
+    console.log(selectionSort(arr));
+
 }
 if (process.env.USERNAME === "getsu") {
     runProgram(`5
