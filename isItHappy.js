@@ -1,4 +1,4 @@
-function sumOfPowerOfDigits(n) {
+function sumOfSquareOfDigits(n) {
     var sum = 0;
     while (n != 0) {
         sum += (n % 10) ** 2;
@@ -8,15 +8,14 @@ function sumOfPowerOfDigits(n) {
 }
 
 function isItHappy(n) {
-    var count = 0;
+    var set = new Set();
     var sum = 0;
     while (n != 1) {
-        var sum = sumOfPowerOfDigits(n);
+        var sum = sumOfSquareOfDigits(n);
         n = sum;
-        count++;
-        if (count > 10)
+        if (set.has(n))
             return false;
-
+        set.add(n);
     }
     return true;
 }
