@@ -4,22 +4,24 @@ function runProgram(input) {
     var stack = [];
     var queue = [];
     for (var i = 1; i <= t; i++) {
-        var num = newInput[i].split(" ").map(Number);
-        if (num[0] == 1)
+        var num = newInput[i].trim().split(" ").map(Number);
+        var option = num[0];
+
+        if (option == 1)
             queue.push(num[1]);
-        else if (num[0] == 2)
+        else if (option == 2)
             stack.push(num[1]);
-        else if (num[0] == 3) {
+        else if (option == 3) {
             if (queue.length == 0)
                 console.log("-1");
             else
-                console.log(queue.shift());
-        } else if (num[0] == 4) {
+                console.log(queue[0]);
+        } else if (option == 4) {
             if (stack.length == 0)
                 console.log("-1");
             else
-                console.log(stack.pop());
-        } else if (num[0] == 5) {
+                console.log(stack[stack.length - 1]);
+        } else if (option == 5) {
             let person = queue.shift();
             stack.push(person);
         }
@@ -27,9 +29,8 @@ function runProgram(input) {
 
     }
 
-
-
 }
+
 if (process.env.USERNAME === "getsu") {
     runProgram(`7
 1 4
