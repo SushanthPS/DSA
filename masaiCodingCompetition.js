@@ -16,19 +16,23 @@ function runProgram(input) {
       let rno = options[2]; //roll number
       switch (cno) {
         case '1':
-          if (!mq.includes(cno)) mq.push(cno);
+          if (!mq.includes(cno))
+            mq.push(cno);
           q1.push(rno);
           break;
         case '2':
-          if (!mq.includes(cno)) mq.push(cno);
+          if (!mq.includes(cno))
+            mq.push(cno);
           q2.push(rno);
           break;
         case '3':
-          if (!mq.includes(cno)) mq.push(cno);
+          if (!mq.includes(cno))
+            mq.push(cno);
           q3.push(rno);
           break;
         case '4':
-          if (!mq.includes(cno)) mq.push(cno);
+          if (!mq.includes(cno))
+            mq.push(cno);
           q4.push(rno);
           break;
       }
