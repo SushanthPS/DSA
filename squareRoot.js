@@ -8,9 +8,7 @@ function squareRoot(n) {
         if (mid * mid <= n) {
             ans = mid;
             low = mid + 1;
-        } else if (mid * mid > n)
-            high = mid - 1;
-
+        } else if (mid * mid > n) high = mid - 1;
     }
     return ans;
 }
@@ -18,11 +16,12 @@ function squareRoot(n) {
 function runProgram(input) {
     let newInput = input.split("\n");
     let t = Number(newInput[0]);
+    let ans = [];
     for (let i = 1; i <= t; i++) {
         let n = Number(newInput[i]);
-        console.log(squareRoot(n));
+        ans.push(squareRoot(n));
     }
-
+    console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
     runProgram(`2
