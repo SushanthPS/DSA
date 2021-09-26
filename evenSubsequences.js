@@ -14,6 +14,7 @@ function subset(arr, low, high, ans, k) {
     for (let i = low; i <= high; i++) {
         let temp = ans.slice(0);
         temp.push(arr[i]);
+        console.log(temp);
         subset(arr, i + 1, high, temp, k);
     }
 }
