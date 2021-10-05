@@ -1,42 +1,28 @@
-let count;
-
-function subset(arr, low, high, ans, k) {
-    if (low <= high + 1 && ans.length != 0) {
-        let num = 0;
-        for (let i = 0; i < ans.length; i++) {
-            if (ans[i] % 2 == 0) num++;
-            if (num >= k) {
-                count++;
+function runProgram(input) {
+    let newInput = input.trim().split("\n");
+    let t = Number(newInput[0]);
+    for (let i = 1; i < t * 2; i += 2) {
+        let arr = newInput[i + 1].trim().split(" ").map(Number);
+        let flag = false;
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j] % 2 == 0) {
+                flag = true;
                 break;
             }
         }
-    }
-    for (let i = low; i <= high; i++) {
-        let temp = ans.slice(0);
-        temp.push(arr[i]);
-        console.log(temp);
-        subset(arr, i + 1, high, temp, k);
-    }
-}
 
-function runProgram(input) {
-    let newInput = input.split("\n");
-    let t = Number(newInput[0]);
-    for (let i = 1; i < t * 2; i += 2) {
-        let nk = newInput[i].trim().split(" ").map(Number);
-        let k = nk[1];
-        let arr = newInput[i + 1].trim().split(" ").map(Number);
-        count = 0;
-        subset(arr, 0, arr.length - 1, [], k);
-        console.log(count);
+        if (flag)
+            console.log("yes");
+        else
+            console.log("no");
     }
 }
 if (process.env.USERNAME === "getsu") {
     runProgram(`2
-    4 2
-    4 3 2 1
-    2 1
-    2 3`);
+    5
+    4 3 2 1 5
+    2
+    1 3`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");
