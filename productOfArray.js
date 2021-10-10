@@ -1,35 +1,36 @@
-function rotateArr(arr, k) {
-    k = k % arr.length;
-    if (k == 0) {
-        console.log(arr.join(" "));
-        return;
-    }
+function product(arr) {
+    let n = arr.length;
+    let result = "";
 
-    let sep = arr.length - k;
-    let arr1 = arr.slice(sep);
-    let arr2 = arr.slice(0, sep);
+    let left = [];
+    let right = [];
 
-    console.log(arr1.join(" ") + " " + arr2.join(" "));
+    left[0] = 1;
+    right[n - 1] = 1;
+
+    for (let i = 1; i < n; i++) left[i] = arr[i - 1] * left[i - 1];
+
+    for (let i = n - 2; i >= 0; i--) right[i] = arr[i + 1] * right[i + 1];
+
+    for (let i = 0; i < n; i++) result += left[i] * right[i] + " ";
+
+    return result;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
     let t = Number(newInput[0]);
     for (let i = 1; i < t * 2; i += 2) {
-        let nk = newInput[i].trim().split(" ").map(Number);
         let arr = newInput[i + 1].trim().split(" ").map(Number);
-        let k = nk[1];
-        rotateArr(arr, k);
+        console.log(product(arr));
     }
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`3
-    3 1
-    1 2 3
-    2 2
-    1 2
-    2 3
-    1 2`);
+    runProgram(`2
+    5
+    1 2 3 4 5
+    3
+    3 2 7`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");
