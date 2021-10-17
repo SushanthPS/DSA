@@ -1,10 +1,17 @@
+let obj = {};
+obj[0] = 1;
+obj[1] = 1;
+obj[2] = 2;
+
+//dynamic programming
+
 function numberOfWays(n) {
-    if (n == 0 || n == 1)
-        return 1;
-    else if (n == 2)
-        return 2;
+    if (obj[n] != undefined) return obj[n];
     else
-        return numberOfWays(n - 3) + numberOfWays(n - 2) + numberOfWays(n - 1)
+        obj[n] =
+            numberOfWays(n - 3) + numberOfWays(n - 2) + numberOfWays(n - 1);
+
+    return obj[n];
 }
 
 function runProgram(input) {
