@@ -1,48 +1,38 @@
 let ans = [];
 
-function maxArea(arr) {
-    let max = 0;
-    let temp;
+function findAns(arr, k) {
+    let sum = 0;
+    let left = 0;
+
     for (let i = 0; i < arr.length; i++) {
-        let left = 0;
-        let right = arr.length - 1;
-        temp = i;
+        sum += arr[i];
 
-        while (temp >= 0) {
-            if (arr[temp] < arr[i]) break;
-            left = temp;
-            temp--;
+        while (sum > k) {
+            sum -= arr[left];
+            left++;
         }
 
-        temp = i;
-
-        while (temp < arr.length) {
-            if (arr[temp] < arr[i]) break;
-            right = temp;
-            temp++;
-        }
-
-        let sum = (right - left + 1) * arr[i];
-        max = Math.max(max, sum);
+        if (sum === k) return "Yes";
     }
-    return max;
+
+    return "No";
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
     let t = Number(newInput[0]);
     for (let i = 1; i < t * 2; i += 2) {
+        let nk = newInput[i].trim().split(" ").map(Number);
         let arr = newInput[i + 1].trim().split(" ").map(Number);
-        ans.push(maxArea(arr));
+        let k = nk[1];
+        ans.push(findAns(arr, k));
     }
     console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`2
-    4
-    2 3 4 5
-    6
-    7 5 4 3 6 8`);
+    runProgram(`1
+    8 8
+7 4 2 8 1 3 6 5`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");
