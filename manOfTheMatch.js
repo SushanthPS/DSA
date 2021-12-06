@@ -1,20 +1,22 @@
-let ans = [];
-
 function solve(arr) {
-    let stack = [];
-    let result = "";
+    let virat = 0;
+    let ab = 0;
+    let turn = true; //true for ab, false for virat
 
-    for (let i = arr.length - 1; i >= 0; i--) {
-        let ele = arr[i];
-        while (stack.length !== 0 && ele >= stack[stack.length - 1])
-            stack.pop();
+    for (let i = 0; i < arr.length; i++) {
+        if (turn) ab += arr[i];
+        else virat += arr[i];
 
-        if (stack.length === 0) result = "-1 " + result;
-        else result = stack[stack.length - 1] + " " + result;
+        if (arr[i] === 1 || arr[i] === 3) turn = !turn;
 
-        stack.push(ele);
+        if ((i + 1) % 6 === 0) {
+            turn = !turn;
+        }
     }
-    return result;
+    // console.log(ab, virat);
+    if (virat > ab) console.log("Virat Kohli");
+    else if (ab > virat) console.log("AB de Villiers");
+    else console.log("Tie");
 }
 
 function runProgram(input) {
@@ -22,14 +24,17 @@ function runProgram(input) {
     let t = Number(newInput[0]);
     for (let i = 1; i < t * 2; i += 2) {
         let arr = newInput[i + 1].trim().split(" ").map(Number);
-        ans.push(solve(arr));
+        solve(arr);
     }
-    console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`1
-    6
-    1 3 2 4`);
+    runProgram(`3
+    2
+    1 2 0 0 1 1 6 6 4 1 6 1
+    3
+    0 0 0 0 0 1 0 0 0 0 1 1 6 6 6 1 4 4
+    1
+    0 1 0 1 0 0`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

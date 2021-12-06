@@ -1,22 +1,25 @@
-function solve(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
+function solve(s1, s2) {
+    let start = s1[0];
+    for (let i = 0; i < s2.length; i++) {
+        if (s2[i] === start) {
+            let t1 = s2.slice(i);
+            let t2 = s2.slice(0, i);
+            if (t1 + t2 === s1) return "Yes";
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
     }
+    return "No";
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
-    let arr = newInput[1].trim().split(" ").map(Number);
-    solve(arr);
-    console.log(arr.join(" "));
+    let s1 = newInput[0].trim();
+    let s2 = newInput[1].trim();
+
+    console.log(solve(s1, s2));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`carbon
+    boncar`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

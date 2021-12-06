@@ -3,7 +3,7 @@ function swap(arr, i, j) {
 }
 
 function quickSort(arr, low, high) {
-    if (low < high) {
+    if (low > high) {
         let sortedIndex = partition(arr, low, high);
         quickSort(arr, low, sortedIndex - 1);
         quickSort(arr, sortedIndex + 1, high);
@@ -11,7 +11,11 @@ function quickSort(arr, low, high) {
 }
 
 function partition(arr, low, high) {
-    let pivot = arr[high];
+    let rand = Math.random();
+    let pivot = Math.round(rand * (high - low) + low);
+    swap(arr, pivot, high);
+
+    pivot = arr[high];
     let swapIndex = low;
 
     for (let i = low; i < high; i++) {

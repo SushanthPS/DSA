@@ -1,22 +1,26 @@
-function solve(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
+function solve(str) {
+    let current;
+    let count = 1;
+    let ans = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (current !== str[i]) {
+            ans = Math.max(ans, count);
+            current = str[i];
+            count = 1;
+        } else if (current === str[i]) {
+            count++;
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
     }
+    ans = Math.max(ans, count);
+    return ans;
 }
 
 function runProgram(input) {
-    let newInput = input.split("\n");
-    let arr = newInput[1].trim().split(" ").map(Number);
-    solve(arr);
-    console.log(arr.join(" "));
+    let str = input;
+    console.log(solve(str));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`ATTCGGGA`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

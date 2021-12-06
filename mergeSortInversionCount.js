@@ -1,17 +1,18 @@
+let count = 0;
+
 function mergeSort(arr, l, r) {
-    let count = 0;
     if (l < r) {
         let mid = Math.floor((l + r) / 2);
-        count += mergeSort(arr, l, mid);
-        count += mergeSort(arr, mid + 1, r);
-        count += merge(arr, l, mid, r);
-    }
-    return count;
+        mergeSort(arr, l, mid);
+        mergeSort(arr, mid + 1, r);
+        merge(arr, l, mid, r);
+    } //this function only happens after all elements are divided into single element arrays.
+    // arr changes take place globally}
 }
 
 function merge(arr, l, mid, r) {
-    let L = arr.slice(l, mid + 1);
-    let R = arr.slice(mid + 1, r + 1);
+    let L = arr.slice(l, mid + 1); //creating left array
+    let R = arr.slice(mid + 1, r + 1); //creating right array
 
     let n1 = L.length;
     let n2 = R.length;
@@ -22,35 +23,38 @@ function merge(arr, l, mid, r) {
     let swap = 0;
 
     while (i < n1 && j < n2) {
+        //merging left and right array after sorting
         if (L[i] < R[j]) {
             arr[k] = L[i];
             i++;
         } else {
             arr[k] = R[j];
             j++;
-            swap += mid + 1 - (l + i);
-            //finding number of elements in left array that will have to be inverted
+            count += mid + 1 - (l + i);
         }
         k++;
     }
 
     while (i < n1) {
+        //adding remaining elements to global array if missed from above sorting
         arr[k] = L[i];
         k++;
         i++;
     }
     while (j < n2) {
+        //adding remaining elements to global array if missed from above sorting
+        arr[k] = R[j];
         k++;
         j++;
     }
-    return swap;
 }
 
 function runProgram(input) {
     let newInput = input.trim().split("\n");
     var arr = newInput[1].trim().split(" ").map(Number);
     let n = Number(newInput[0].trim());
-    console.log(mergeSort(arr, 0, n - 1));
+    mergeSort(arr, 0, n - 1);
+    console.log(count);
 }
 if (process.env.USERNAME === "getsu") {
     runProgram(`4

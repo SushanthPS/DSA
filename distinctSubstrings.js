@@ -1,22 +1,33 @@
-function solve(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
+let ans = [];
+
+function solve(str) {
+    let set = new Set();
+    for (let i = 0; i < str.length; i++) {
+        let temp = "";
+        for (let j = i; j < str.length; j++) {
+            temp += str[j];
+            set.add(temp);
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
     }
+
+    return set.size;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
-    let arr = newInput[1].trim().split(" ").map(Number);
-    solve(arr);
-    console.log(arr.join(" "));
+    let t = Number(newInput[0]);
+    for (let i = 1; i < t * 2; i += 2) {
+        let str = newInput[i + 1].trim().split("");
+        ans.push(solve(str));
+    }
+    console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`2
+    5
+    abcde
+    3
+    aaa`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

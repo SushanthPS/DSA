@@ -1,22 +1,39 @@
 function solve(arr) {
+    arr.sort((a, b) => a - b);
+    let min = [];
+    let max = [];
+    let minResult = "";
+    let maxResult = "";
+
     for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
+        if (min.length < 3 && !min.includes(arr[i])) {
+            min.push(arr[i]);
+            minResult += arr[i] + " ";
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
     }
+
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (max.length < 3 && !max.includes(arr[i])) {
+            maxResult = arr[i] + " " + maxResult;
+            max.push(arr[i]);
+        }
+    }
+
+    if (min.length < 3) console.log("Not Possible");
+    else console.log(minResult);
+
+    if (max.length < 3) console.log("Not Possible");
+    else console.log(maxResult);
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
     let arr = newInput[1].trim().split(" ").map(Number);
     solve(arr);
-    console.log(arr.join(" "));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`8
+    1 2 3 4 2 1 6 5`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

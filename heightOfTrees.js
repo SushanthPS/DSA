@@ -1,18 +1,16 @@
 function maxHeight(arr) {
-    let maxCount = 0;
+    let dp = [];
+    dp[0] = 1;
+    let max = 1;
 
-    for (let i = 0; i < arr.length; i++) {
-        let count = 1;
-        let current = arr[i];
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] > current) {
-                current = arr[j];
-                count++;
-            }
+    for (let i = 1; i < arr.length; i++) {
+        dp[i] = 1;
+        for (let j = 0; j < i; j++) {
+            if (arr[i] > arr[j]) dp[i] = Math.max(dp[i], dp[j] + 1);
         }
-        maxCount = Math.max(count, maxCount);
+        max = Math.max(max, dp[i]);
     }
-    return maxCount;
+    return max;
 }
 
 function runProgram(input) {

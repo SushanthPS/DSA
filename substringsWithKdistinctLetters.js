@@ -1,22 +1,31 @@
-function solve(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
-        }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
+function isUnique(str, m, n) {
+    let set = new Set();
+    for (let i = m; i <= n; i++) {
+        if (set.has(str[i])) return false;
+        set.add(str[i]);
     }
+    return true;
+}
+
+function solve(str, k) {
+    let count = 0;
+    for (let i = 0; i < str.length - 2; i++) {
+        if (isUnique(str, i, i + k - 1)) {
+            count++;
+        }
+    }
+    return count;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
-    let arr = newInput[1].trim().split(" ").map(Number);
-    solve(arr);
-    console.log(arr.join(" "));
+    let [, k] = newInput[0].trim().split(" ").map(Number);
+    let str = newInput[1].trim();
+    console.log(solve(str, k));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`4 2
+    abcc`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

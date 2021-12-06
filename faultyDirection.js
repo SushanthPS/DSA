@@ -1,22 +1,35 @@
+let ans = [];
+
 function solve(arr) {
+    let x = 0;
+    let y = 0;
+
     for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
-        }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
+        if (arr[i] === "L") x--;
+        else if (arr[i] === "R") x++;
+        else if (arr[i] === "U") y++;
+        else if (arr[i] === "D") y--;
     }
+
+    if (x === 0 && y === 0) return "Yes";
+    else return "No";
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
-    let arr = newInput[1].trim().split(" ").map(Number);
-    solve(arr);
-    console.log(arr.join(" "));
+    let t = Number(newInput[0]);
+    for (let i = 1; i < t * 2; i += 2) {
+        let str = newInput[i + 1].trim().split("");
+        ans.push(solve(str));
+    }
+    console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`2
+    5
+    RLRUD
+    4
+    LRUD`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

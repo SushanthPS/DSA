@@ -1,35 +1,44 @@
+//UNSOLVED
+
 let ans = [];
 
 function solve(arr) {
-    let stack = [];
-    let result = "";
+    let set = new Set();
+    for (let i = 0; i < 1; i++)
+        for (let j = 0; j < arr[i].length; j++) set.add(arr[i][j]);
 
-    for (let i = arr.length - 1; i >= 0; i--) {
-        let ele = arr[i];
-        while (stack.length !== 0 && ele >= stack[stack.length - 1])
-            stack.pop();
-
-        if (stack.length === 0) result = "-1 " + result;
-        else result = stack[stack.length - 1] + " " + result;
-
-        stack.push(ele);
+    for (let i = 1; i < arr.length; i++) {
+        let temp = new Set();
+        for (let j = 0; j < arr[i].length; j++) {
+            if (set.has(arr[i][j])) temp.add(arr[i][j]);
+        }
+        set = temp;
     }
-    return result;
+
+    return set.size;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
     let t = Number(newInput[0]);
-    for (let i = 1; i < t * 2; i += 2) {
-        let arr = newInput[i + 1].trim().split(" ").map(Number);
+    for (let i = 1; i <= t; i++) {
+        let [n, m] = newInput[i].trim().split(" ").map(Number);
+        let arr = newInput.splice(i + 1, n);
+        arr = arr.map((el) => el.trim().split(" ").map(Number));
         ans.push(solve(arr));
     }
     console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`1
-    6
-    1 3 2 4`);
+    runProgram(`2
+    3 3
+    1 2 1 
+    1 3 1
+    1 2 1
+    3 3
+    1 2 3
+    1 1 3
+    1 2 3`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

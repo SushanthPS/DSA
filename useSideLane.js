@@ -1,39 +1,53 @@
 function solve(arr) {
-    let obj = {};
-    let max = 0;
-    let j = 0;
-
+    let stack = [];
+    let count = 1;
     for (let i = 0; i < arr.length; i++) {
-        let ele = arr[i];
-
-        if (obj[ele]) {
-            j = Math.max(obj[ele], j);
+        if (stack.length === 0 || arr[i] < stack[stack.length - 1])
+            stack.push(arr[i]);
+        else {
+            while (stack[stack.length - 1] === count) {
+                stack.pop();
+                count++;
+            }
+            if (stack.length === 0 || arr[i] < stack[stack.length - 1])
+                stack.push(arr[i]);
+            else return "no";
         }
-
-        max = Math.max(max, i - j);
-
-        obj[ele] = i;
     }
 
-    return max;
+    return "yes";
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
-    let t = Number(newInput[0]);
-    for (let i = 1; i < t * 2; i += 2) {
+    let i = 0;
+    while (newInput[i].trim() !== "0") {
         let arr = newInput[i + 1].trim().split(" ").map(Number);
+        i += 2;
+
         console.log(solve(arr));
     }
 }
+
+/*
+yes
+no
+no
+no
+no
+*/
 if (process.env.USERNAME === "getsu") {
-    runProgram(`3
-    8
-    1 2 1 3 2 7 4 2
-    5
-    1 2 1 3 4
-    4
-    1 2 2 1`);
+    runProgram(`6
+    3 2 1 4 5 6
+    5 
+    3 2 5 1 4
+    7
+    2 3 6 1 4 5 7
+    6
+    3 2 6 1 4 5
+    6
+    3 2 6 5 4 1
+    0`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

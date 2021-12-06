@@ -1,35 +1,40 @@
-let ans = [];
+function solve2(str) {
+    let temp = [];
 
-function solve(arr) {
-    let stack = [];
-    let result = "";
-
-    for (let i = arr.length - 1; i >= 0; i--) {
-        let ele = arr[i];
-        while (stack.length !== 0 && ele >= stack[stack.length - 1])
-            stack.pop();
-
-        if (stack.length === 0) result = "-1 " + result;
-        else result = stack[stack.length - 1] + " " + result;
-
-        stack.push(ele);
+    for (let i = 0; i < str.length - 1; i++) {
+        if (str[i] === str[i + 1]) temp.push(str[i]);
+        else i++;
     }
-    return result;
+
+    return temp;
+}
+
+function solve(str) {
+    while (true) {
+        let len = str.length;
+
+        str = solve2(str);
+        console.log(str);
+
+        if (len === str.length) break;
+    }
+    return str.length;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
     let t = Number(newInput[0]);
     for (let i = 1; i < t * 2; i += 2) {
-        let arr = newInput[i + 1].trim().split(" ").map(Number);
-        ans.push(solve(arr));
+        let str = newInput[i + 1].trim().split("");
+        console.log(solve(str));
     }
-    console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`1
+    runProgram(`2
+    5
+    11000
     6
-    1 3 2 4`);
+    100001`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

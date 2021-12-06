@@ -1,22 +1,30 @@
-function solve(arr) {
+function solve(arr, k) {
+    let sum = 0;
+    let count = 0;
     for (let i = 0; i < arr.length; i++) {
-        let min = i;
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) min = j;
+        for (let j = i; j < arr.length; j++) {
+            sum += arr[j];
+            if (sum <= k) count++;
+            else break;
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
+        sum = 0;
     }
+    return count;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
-    let arr = newInput[1].trim().split(" ").map(Number);
-    solve(arr);
-    console.log(arr.join(" "));
+    let t = Number(newInput[0]);
+    for (let i = 1; i < t * 2; i += 2) {
+        let [, k] = newInput[i].trim().split(" ").map(Number);
+        let arr = newInput[i + 1].trim().split(" ").map(Number);
+        console.log(solve(arr, k));
+    }
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`5
-    3 5 0 9 8`);
+    runProgram(`1
+    7 20
+    2 6 4 3 6 8 9`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");

@@ -1,35 +1,45 @@
 let ans = [];
 
 function solve(arr) {
-    let stack = [];
-    let result = "";
-
-    for (let i = arr.length - 1; i >= 0; i--) {
-        let ele = arr[i];
-        while (stack.length !== 0 && ele >= stack[stack.length - 1])
-            stack.pop();
-
-        if (stack.length === 0) result = "-1 " + result;
-        else result = stack[stack.length - 1] + " " + result;
-
-        stack.push(ele);
+    arr = arr.map((el) => el.trim().split("").sort().join(""));
+    let obj = {};
+    for (let i = 0; i < arr.length; i++) {
+        if (!obj[arr[i]]) obj[arr[i]] = 1;
+        else obj[arr[i]]++;
     }
-    return result;
+
+    let sum = 0;
+
+    for (let key in obj) {
+        let n = obj[key];
+        sum += (n * (n - 1)) / 2;
+    }
+
+    return sum;
 }
 
 function runProgram(input) {
     let newInput = input.split("\n");
     let t = Number(newInput[0]);
-    for (let i = 1; i < t * 2; i += 2) {
-        let arr = newInput[i + 1].trim().split(" ").map(Number);
+
+    for (let i = 1; i <= t; i++) {
+        let n = Number(newInput[i]);
+        let arr = newInput.splice(i + 1, n);
         ans.push(solve(arr));
     }
     console.log(ans.join("\n"));
 }
 if (process.env.USERNAME === "getsu") {
-    runProgram(`1
-    6
-    1 3 2 4`);
+    runProgram(`2
+    5
+    aaaaabbbbb
+    baabbbbaaa
+    aaaabbbbba
+    xxxxxxxxxy
+    yxxxxxxxxx
+    2
+    abcdefghij
+    jighdefabc`);
 } else {
     process.stdin.resume();
     process.stdin.setEncoding("ascii");
